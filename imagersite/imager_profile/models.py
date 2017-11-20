@@ -16,3 +16,12 @@ class ImagerProfile(models.Model):
     phone = models.CharField(max_length=14)
     photo_styles = models.TextField(max_length=400)
     user = models.OneToOneField(User)
+
+    def active(self):
+        return User.objects.all(is_active)
+
+    def is_active(self, user):
+        return User.objects.get(user.is_active)
+
+    def __repr__(self):
+        return 'user: {}.format(self.user)'
