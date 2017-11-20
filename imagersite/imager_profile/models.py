@@ -1,3 +1,18 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+
+CAMERA_MODELS = ['NikonD3300', 'CanonT6i', 'Canon5dMarkIII']
+
+
+class ImagerProfile(models.Model):
+    website = models.URLField(max_length=180)
+    location = models.CharField(max_length=50)
+    commission = models.FloatField(max_length=20)
+    camera = models.CharField(max_length=20, choices=CAMERA_MODELS, default='1')
+    services = models.TextField(max_length=2000)
+    bio = models.TextField(max_length=2000)
+    phone = models.CharField(max_length=14)
+    photo_styles = models.TextField(max_length=400)
+    user = models.OneToOneField(User)
