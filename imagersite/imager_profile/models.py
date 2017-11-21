@@ -16,8 +16,11 @@ class ImagerProfile(models.Model):
     bio = models.TextField(max_length=2000)
     phone = models.CharField(max_length=14)
     photo_styles = models.TextField(max_length=400)
-    active = User.objects.all(User.is_active)
-    is_active = User.objects.get(User.is_active)
+    active = User.objects.all()
+
+    @property
+    def is_active(self):
+        return self.user.is_active
 
     def __repr__(self):
-        return 'User: {}.format(self)'
+        return self.user.username
