@@ -7,7 +7,7 @@ CAMERA_MODELS = [('NikonD3300', 1), ('CanonT6i', 2), ('Canon5dMarkIII', 1)]
 
 
 class ImagerProfile(models.Model):
-    website = models.URLField(max_length=180)
+    website = models.CharField(max_length=180)
     location = models.CharField(max_length=50)
     commission = models.FloatField(max_length=20)
     camera = models.CharField(max_length=20, choices=CAMERA_MODELS, default='1')
