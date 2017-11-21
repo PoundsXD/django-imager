@@ -3,11 +3,12 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-CAMERA_MODELS = [('NikonD3300', 1), ('CanonT6i', 2), ('Canon5dMarkIII', 1)]
+CAMERA_MODELS = [('NikonD3300', 1), ('CanonT6i', 2), ('Canon5dMarkIII', 3)]
 
 
 class ImagerProfile(models.Model):
-    website = models.URLField(max_length=180)
+    user = models.OneToOneField(User)
+    website = models.CharField(max_length=180)
     location = models.CharField(max_length=50)
     commission = models.FloatField(max_length=20)
     camera = models.CharField(max_length=20, choices=CAMERA_MODELS, default='1')
@@ -15,13 +16,8 @@ class ImagerProfile(models.Model):
     bio = models.TextField(max_length=2000)
     phone = models.CharField(max_length=14)
     photo_styles = models.TextField(max_length=400)
-    user = models.OneToOneField(User)
-
-    def active(self):
-        return User.objects.all(User.is_active)
-
-    def is_active(self, user):
-        return User.objects.get(user.is_active)
+    active = User.objects.all(User.is_active)
+    is_active = User.objects.get(User.is_active)
 
     def __repr__(self):
-        return 'user: {}.format(self)'
+        return 'User: {}.format(self)'
