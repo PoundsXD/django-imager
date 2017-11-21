@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-CAMERA_MODELS = ['NikonD3300', 'CanonT6i', 'Canon5dMarkIII']
+CAMERA_MODELS = [('NikonD3300', 1), ('CanonT6i', 2), ('Canon5dMarkIII', 1)]
 
 
 class ImagerProfile(models.Model):
@@ -18,10 +18,10 @@ class ImagerProfile(models.Model):
     user = models.OneToOneField(User)
 
     def active(self):
-        return User.objects.all(is_active)
+        return User.objects.all(User.is_active)
 
     def is_active(self, user):
         return User.objects.get(user.is_active)
 
     def __repr__(self):
-        return 'user: {}.format(self.user)'
+        return 'user: {}.format(self)'
