@@ -20,7 +20,7 @@ class ImagerProfile(models.Model):
     @property
     def active(self):
         """."""
-        active = User.objects.all()
+        return User.objects.all().filter(is_active=True)
 
     @property
     def is_active(self):
