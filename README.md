@@ -6,4 +6,4 @@
 - *Carson*
 
 ## Resources Used
-In creating this app, we used factory_boy.
+In creating this app, we used django and factory_boy.
