@@ -17,7 +17,7 @@ class Photo(models.Model):
                 )
 
     user = models.OneToOneField(User)
-    title = models.CharField(max_length=180)
+    title = models.CharField(max_length=180, primary_key=True) #an album is collect of titles
     description = models.CharField(max_length=180)
     date_uploaded = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
