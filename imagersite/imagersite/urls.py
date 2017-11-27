@@ -13,9 +13,16 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+from imager_profile import views
 
 urlpatterns = [
+    url(r'^activation_sent/$', views.activation_sent_view, name='activationsent'),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
     url(r'^admin/', admin.site.urls),
+    url(r'^$', views.home_view, name='homepage'),
+    url(r'^login/$', views.login_view, name='login'),
+    url(r'^register/$', views.register_view, name='register'),
+    url(r'^register/', include('registration.backends.hmac.urls'))
 ]
