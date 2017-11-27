@@ -67,3 +67,14 @@ class ImagerProfile(models.Model):
     def __repr__(self):
         """Return a printable version of a user."""
         return self.user.username
+
+
+class Album(models.Model):
+    """Create container for photos to be grouped in under a user."""
+
+    user = models.OneToOneField(User)
+    title = models.CharField(max_length=20)
+    description = models.TextField(max_length=2000)
+    date_published = DateTimeField()
+    date_uploaded = DateTimeField(auto_now_add=True)
+    daet_modified = DateTimeField(auto_now_add=True)
