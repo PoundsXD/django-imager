@@ -3,6 +3,40 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+
+class Photo(models.Model):
+    """Photo template for a photo."""
+
+    PUBLISHED = (
+                ('PRIVATE', 'This photo is private'),
+                ('SHARED', 'This photo is shared'),
+                ('PUBLIC', 'This photo is public')
+                )
+
+    user = models.OneToOneField(User)
+    title = models.CharField(max_length=180)
+    description = models.CharField(max_length=180)
+    date_uploaded = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
+    date_published = models.DateTimeField()
+    published = models.CharField(max_length=20, choices=PUBLISHED, default=PRIVATE)
+
+    @property
+    def active(self):
+        """Gets all active users."""
+        return User.objects.all().filter(is_active=True)
+
+    @property
+    def is_active(self):
+        """Gets activity setting for a given user."""
+        return self.user.is_active
+
+    def __repr__(self):
+        """Return a printable version of a user."""
+        return self.user.username
 
 
 class ImagerProfile(models.Model):
@@ -72,9 +106,24 @@ class ImagerProfile(models.Model):
 class Album(models.Model):
     """Create container for photos to be grouped in under a user."""
 
-    user = models.OneToOneField(User)
+    user = models.ForeignKey(User)
+    album = models.ManyToManyField(photo, on_delete=models.PROTECT)
     title = models.CharField(max_length=20)
     description = models.TextField(max_length=2000)
-    date_published = DateTimeField()
-    date_uploaded = DateTimeField(auto_now_add=True)
-    daet_modified = DateTimeField(auto_now_add=True)
+    date_published = models.DateTimeField()
+    date_uploaded = models.DateTimeField(auto_now_add=True)
+    daet_modified = models.DateTimeField(auto_now=True)
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email_confirmed = models.BooleanField(default=False)
+    # other fields...
+
+
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+    instance.profile.save()
+

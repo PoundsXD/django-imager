@@ -1,0 +1,9 @@
+{% autoescape off %}
+Hello {{ user.username }}!,
+
+Thank you for registering with imgine, the world's leading photographer website. Only one more step until you're posting your photographs for the world to see!
+
+Click on the link below to confirm your registration!
+
+http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+{% endautoescape %}

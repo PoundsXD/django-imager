@@ -1,0 +1,19 @@
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block bootstrap3_content %}
+    <div class="container">
+        <h1>Welcome to the imgine, the world's leading photographer site.</h1>
+        <ul class="nav nav-pills">
+            <li role="presentation"><a href="{% url 'homepage' %}">Home</a></li>
+            <li role="presentation"><a href="{% url 'login' %}">Login</a></li>
+            <li role="presentation"><a href="{% url 'register' %}">Register</a></li>
+        </ul>
+
+        {% block content %}{% endblock %}
+
+    </div>
+
+{% endblock %}
