@@ -17,7 +17,7 @@ class Photo(models.Model):
                 )
 
     user = models.OneToOneField(User)
-    title = models.CharField(max_length=180)
+    title = models.CharField(max_length=180, primary_key=True) #an album is collect of titles
     description = models.CharField(max_length=180)
     date_uploaded = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
@@ -106,8 +106,8 @@ class ImagerProfile(models.Model):
 class Album(models.Model):
     """Create container for photos to be grouped in under a user."""
 
-    user = models.ForeignKey(User)
-    album = models.ManyToManyField(photo, on_delete=models.PROTECT)
+    user = models.ForeignKey(User, on_delete=models.PROTECT)
+    album = models.ManyToManyField(Photo)
     title = models.CharField(max_length=20)
     description = models.TextField(max_length=2000)
     date_published = models.DateTimeField()
