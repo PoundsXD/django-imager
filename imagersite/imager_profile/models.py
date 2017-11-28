@@ -46,10 +46,11 @@ class ImagerProfile(models.Model):
              (STANDARD, 'Regular shots with no filters.')
              )
 
+    objects = models.Manager()
     user = models.OneToOneField(User)
     website = models.CharField(max_length=180)
     location = models.CharField(max_length=50)
-    commission = models.FloatField(max_length=20)
+    commission = models.FloatField(max_length=20, blank=True, null=True)
     camera = models.CharField(max_length=20, choices=CAMERA_MODELS, default=CANONT6I)
     services = models.TextField(max_length=2000, choices=SERVICES, default=MEGA)
     bio = models.TextField(max_length=2000)
@@ -81,5 +82,6 @@ class Profile(models.Model):
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+        ImagerProfile.objects.create(user=instance)
     instance.profile.save()
 

@@ -1,4 +1,7 @@
+"""Views."""
+
 from django.shortcuts import render
+from django.contrib.auth.models import User
 
 
 def home_view(request, page='Home'):
@@ -90,3 +93,9 @@ def activate(request, uidb64, token):
 def activation_sent_view(request):
     """View that displays when activation has been sent."""
     return render(request, 'imager_profile/activation_sent.html')
+
+
+def profile_view(request):
+    """View for user profile."""
+    if request.is_authenticated():
+        return render(request, 'imager_profile/profile.html')
