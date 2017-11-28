@@ -47,7 +47,7 @@ class Album(models.Model):
                 ('PUBLIC', 'This photo is public')
             )
     user = models.ForeignKey(User, on_delete=models.PROTECT)
-    photos = models.ManyToManyField(Photo, blank=True, default='')
+    photos = models.ManyToManyField(Photo, blank=True, default='', related_name='albums')
     cover = models.ForeignKey(Photo, blank=True, default='', related_name='+')
     published = models.CharField(max_length=200, choices=PUBLISHED, default='PRIVATE')
     title = models.CharField(max_length=20)
