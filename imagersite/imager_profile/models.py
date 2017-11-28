@@ -7,38 +7,6 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
-class Photo(models.Model):
-    """Photo template for a photo."""
-
-   PUBLISHED = (
-                ('PRIVATE', 'This photo is private'),
-                ('SHARED', 'This photo is shared'),
-                ('PUBLIC', 'This photo is public')
-                )
-
-   title = models.CharField(max_length=180)
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
-    description = models.CharField(max_length=180)
-    date_uploaded = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(auto_now=True)
-    date_published = models.DateTimeField()
-    published = models.CharField(max_length=20, choices=PUBLISHED, default=PRIVATE)
-
-   @property
-    def active(self):
-        """Gets all active users."""
-        return User.objects.all().filter(is_active=True)
-
-   @property
-    def is_active(self):
-        """Gets activity setting for a given user."""
-        return self.user.is_active
-
-   def __repr__(self):
-        """Return a printable version of a user."""
-        return self.user.username
-
-
 class ImagerProfile(models.Model):
     """Profile template for a created image."""
 
@@ -101,18 +69,6 @@ class ImagerProfile(models.Model):
     def __repr__(self):
         """Return a printable version of a user."""
         return self.user.username
-
-
-class Album(models.Model):
-    """Create container for photos to be grouped in under a user."""
-
-    user = models.ForeignKey(User, on_delete=models.PROTECT)
-    album = models.ManyToManyField(Photo)
-    title = models.CharField(max_length=20)
-    description = models.TextField(max_length=2000)
-    date_published = models.DateTimeField()
-    date_uploaded = models.DateTimeField(auto_now_add=True)
-    daet_modified = models.DateTimeField(auto_now=True)
 
 
 class Profile(models.Model):
