@@ -1,0 +1,44 @@
+{% extends 'imager_profile/base.html' %}
+
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+
+    <p><a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Login</a></p>
+    <p><a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register</a></p>
+
+    <div class="profile-view">
+        <h1>{{ user.username }}</h1>
+        <p>Enter all of your personal details</p>
+
+        <p>{{user.website}}</p>
+        <p>{{user.location}}</p>
+        <p>{{user.commission}}</p>
+        <p>{{user.camera}}</p>
+        <p>{{user.services}}</p>
+        <p>{{user.bio}}</p>
+        <p>{{user.phone}}</p>
+        <p>{{user.photo_styles}}</p>
+
+        <form method="POST">
+            <label>Website<input type="text" placeholder="Enter your website (optional)"></input></label>
+            <label>Camera</label>
+            <label>Commission<input type="number" placeholder="00.00"></input></label>
+            <label>Bio<textarea placeholder="Tell us about yourself..."></textarea></label>
+            <label>Services</label>
+            <label>Phone<input type="text" placeholder="123-456-7890"></input></label>
+            <label>Photo Styles</label>
+            <label>Location<input type="text" placeholder="Seattle, WA"></input></label>
+        </form>
+
+        
+    </div>
+   
+
+    {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+{% endblock %}
