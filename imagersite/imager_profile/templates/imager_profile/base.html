@@ -20,10 +20,10 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="{ url 'profile' }">Profile</a></li>
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="{ url 'albums' }">Albums</a></li>
-                    <li><a href="{ url 'photos' }">Photos</a></li>
+                    <li><a href="{% url 'homepage' %}">Albums</a></li>
+                    <li><a href="{% url 'add-photo' %}">Photos</a></li>
                 </ul>
               </div>
             {% endif %}
