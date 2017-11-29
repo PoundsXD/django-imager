@@ -14,7 +14,7 @@ class Photo(models.Model):
             )
 
     objects = models.Manager()
-    title = models.CharField(max_length=180)
+    title = models.CharField(max_length=180, blank=True)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     image = models.ImageField(upload_to='media/%Y-%m-%d')
     description = models.CharField(max_length=180)

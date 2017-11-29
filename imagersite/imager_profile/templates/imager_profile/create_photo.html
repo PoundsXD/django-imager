@@ -9,7 +9,7 @@
 
     <h1>{{ page }}: Use the fields below to add a new photo.</h1>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     {% buttons submit='Upload' reset="Reset" %}{% endbuttons %}
