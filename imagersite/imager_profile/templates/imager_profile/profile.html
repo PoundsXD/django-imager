@@ -15,14 +15,14 @@
         <h1>{{ user.username }}</h1>
         <p>Enter all of your personal details</p>
 
-        <p>{{user.website}}</p>
-        <p>{{user.location}}</p>
-        <p>{{user.commission}}</p>
-        <p>{{user.camera}}</p>
-        <p>{{user.services}}</p>
-        <p>{{user.bio}}</p>
-        <p>{{user.phone}}</p>
-        <p>{{user.photo_styles}}</p>
+        <p>WEBSITE: {{ user.imagerprofile.website }}</p>
+        <p>LOCATION: {{ user.imagerprofile.location }}</p>
+        <p>COMMISSION: {{ user.imagerprofile.commission }}</p>
+        <p>CAMERA: {{ user.imagerprofile.camera }}</p>
+        <p>SERVICES: {{ user.imagerprofile.services }}</p>
+        <p>BIO: {{ user.imagerprofile.bio }}</p>
+        <p>PHONE: {{ user.imagerprofile.phone }}</p>
+        <p>PHOTO_STYLES: {{ user.imagerprofile.photo_styles }}</p>
 
         <form method="POST">
             <label>Website<input type="text" placeholder="Enter your website (optional)"></input></label>
@@ -35,9 +35,9 @@
             <label>Location<input type="text" placeholder="Seattle, WA"></input></label>
         </form>
 
-        
+
     </div>
-   
+
 
     {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
 

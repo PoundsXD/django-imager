@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from imager_profile import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^activation_sent/$', views.activation_sent_view, name='activationsent'),
@@ -26,3 +28,8 @@ urlpatterns = [
     url(r'^register/$', views.register_view, name='register'),
     url(r'^profile/$', views.profile_view, name='profile')
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(
+        settings.MEDIA_URL, document_root=settings.MEDIA_ROOT
+    )

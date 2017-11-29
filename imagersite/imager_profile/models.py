@@ -5,45 +5,31 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from multiselectfield import MultiSelectField
 
 
 class ImagerProfile(models.Model):
     """Profile template for a created image."""
 
-    NIKOND3300 = 'NKD3300'
-    CANONT6I = 'CNT6I'
-    CANON5DMARKIII = 'CNMKD5III'
-    SONYALPHAA99II = 'SNYA99II'
-
     CAMERA_MODELS = (
-                    (NIKOND3300, 'NikonD3300'),
-                    (CANONT6I, 'CanonT6i'),
-                    (CANON5DMARKIII, 'Canon5dMarkIII'),
-                    (SONYALPHAA99II, 'SonyAlphaA99II')
+                    ('NikonD3300', 'NikonD3300'),
+                    ('CanonT6i', 'CanonT6i'),
+                    ('Canon5dMarkIII', 'Canon5dMarkIII'),
+                    ('SonyAlphaA99II', 'SonyAlphaA99II')
                     )
 
-    ULTIMATE = 'ULT'
-    MEGA = 'MEGA'
-    BASIC = 'BSC'
-
     SERVICES = (
-               (ULTIMATE, '20 photos, provided lighting equipment, additional photo editing post-production.'),
-               (MEGA, '15 photos, provided lighting equipment, 5 free prints of your choice.'),
-               (BASIC, '10 photos, 3 free prints of your choice.')
+               ('Ultimate-Service Pack', '20 photos, provided lighting equipment, additional photo editing post-production.'),
+               ('Mega-Service Pack', '15 photos, provided lighting equipment, 5 free prints of your choice.'),
+               ('Basic-Service Pack', '10 photos, 3 free prints of your choice.')
                )
 
-    SEVENTIES = '70s'
-    NOIR = 'NOIR'
-    BOKEH = 'BOKEH'
-    STUDIO = 'STUDIO'
-    STANDARD = 'STD'
-
     STYLES = (
-             (SEVENTIES, 'Classic retro style with filters to match.'),
-             (NOIR, 'Bold black and white photos.'),
-             (BOKEH, 'Blurry background with subject in focus.'),
-             (STUDIO, 'Profile shots with bright lighting and white backdrop.'),
-             (STANDARD, 'Regular shots with no filters.')
+             ('70\'s', 'Classic retro style with filters to match.'),
+             ('Noir', 'Bold black and white photos.'),
+             ('Bokeh', 'Blurry background with subject in focus.'),
+             ('Studio', 'Profile shots with bright lighting and white backdrop.'),
+             ('Standard', 'Regular shots with no filters.')
              )
 
     objects = models.Manager()
@@ -51,11 +37,11 @@ class ImagerProfile(models.Model):
     website = models.CharField(max_length=180)
     location = models.CharField(max_length=50)
     commission = models.FloatField(max_length=20, blank=True, null=True)
-    camera = models.CharField(max_length=20, choices=CAMERA_MODELS, default=CANONT6I)
-    services = models.TextField(max_length=2000, choices=SERVICES, default=MEGA)
+    camera = MultiSelectField(max_length=20, choices=CAMERA_MODELS, default='CanonT6i')
+    services = MultiSelectField(max_length=2000, choices=SERVICES, default='Mega-Service Pack')
     bio = models.TextField(max_length=2000)
     phone = models.CharField(max_length=14)
-    photo_styles = models.TextField(max_length=400, choices=STYLES, default=STANDARD)
+    photo_styles = MultiSelectField(max_length=400, choices=STYLES, default='Standard')
 
     @property
     def active(self):
@@ -84,4 +70,3 @@ def update_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
         ImagerProfile.objects.create(user=instance)
     instance.profile.save()
-
