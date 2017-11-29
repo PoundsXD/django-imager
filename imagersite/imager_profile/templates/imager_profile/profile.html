@@ -7,13 +7,8 @@
 
 {% block content %}
 
-
-    <p><a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Login</a></p>
-    <p><a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register</a></p>
-
     <div class="profile-view">
-        <h1>{{ user.username }}</h1>
-        <p>Enter all of your personal details</p>
+        <h1>Welcome, {{ user.username }}</h1>
 
         <p>WEBSITE: {{ user.imagerprofile.website }}</p>
         <p>LOCATION: {{ user.imagerprofile.location }}</p>
@@ -23,6 +18,8 @@
         <p>BIO: {{ user.imagerprofile.bio }}</p>
         <p>PHONE: {{ user.imagerprofile.phone }}</p>
         <p>PHOTO_STYLES: {{ user.imagerprofile.photo_styles }}</p>
+
+        <p>To edit your information, use the form below.</p>
 
         <form method="POST">
             <label>Website<input type="text" placeholder="Enter your website (optional)"></input></label>

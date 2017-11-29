@@ -13,7 +13,7 @@ class Photo(models.Model):
                 ('PUBLIC', 'This photo is public')
             )
 
-    objects = models.ModelManager()
+    objects = models.Manager()
     title = models.CharField(max_length=180)
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     image = models.ImageField(upload_to='media/%Y-%m-%d')
