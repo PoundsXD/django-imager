@@ -18,6 +18,8 @@ from django.contrib import admin
 from imager_profile import views
 from django.conf import settings
 from django.conf.urls.static import static
+from imager_images.views import PhotoForm
+
 
 urlpatterns = [
     url(r'^activation_sent/$', views.activation_sent_view, name='activationsent'),
@@ -26,7 +28,8 @@ urlpatterns = [
     url(r'^$', views.home_view, name='homepage'),
     url(r'^login/$', views.login_view, name='login'),
     url(r'^register/$', views.register_view, name='register'),
-    url(r'^profile/$', views.profile_view, name='profile')
+    url(r'^profile/$', views.profile_view, name='profile'),
+    url(r'^images/photos/add/', PhotoForm.as_view(), name='add-photo')
 ]
 
 if settings.DEBUG:
