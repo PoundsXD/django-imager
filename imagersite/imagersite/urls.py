@@ -13,12 +13,12 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url, include
+from django.conf.urls import url
 from django.contrib import admin
 from imager_profile import views
 from django.conf import settings
 from django.conf.urls.static import static
-from imager_images.views import PhotoForm
+from imager_images.views import PhotoForm, AlbumForm, OneProfile
 
 
 urlpatterns = [
@@ -29,7 +29,10 @@ urlpatterns = [
     url(r'^login/$', views.login_view, name='login'),
     url(r'^register/$', views.register_view, name='register'),
     url(r'^profile/$', views.profile_view, name='profile'),
-    url(r'^images/photos/add/', PhotoForm.as_view(), name='add-photo')
+    url(r'^profile/(?P<username>\w)/$',  OneProfile.as_view(), name='one-profile'),
+    url(r'^images/photos/add/', PhotoForm.as_view(), name='add-photo'),
+    url(r'^images/albums/add/', AlbumForm.as_view(), name='add-album'),
+    url(r'^images/library$', name='')
 ]
 
 if settings.DEBUG:

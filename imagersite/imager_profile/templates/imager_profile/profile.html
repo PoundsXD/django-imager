@@ -21,6 +21,7 @@
 
         <p>To edit your information, use the form below.</p>
 
+{% if user.is_active %}
         <form method="POST">
             <label>Website<input type="text" placeholder="Enter your website (optional)"></input></label>
             <label>Camera</label>
@@ -31,6 +32,7 @@
             <label>Photo Styles</label>
             <label>Location<input type="text" placeholder="Seattle, WA"></input></label>
         </form>
+{% endif %}
 
 
     </div>

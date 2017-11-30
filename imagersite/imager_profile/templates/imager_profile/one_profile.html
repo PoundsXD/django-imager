@@ -1,0 +1,26 @@
+{% extends 'imager_profile/base.html' %}
+
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+    <div class="profile-view">
+        <h1>Welcome, {{ profile.user.username }}</h1>
+
+        <p>WEBSITE: {{ profile.website }}</p>
+        <p>LOCATION: {{ profile.location }}</p>
+        <p>COMMISSION: {{ profile.commission }}</p>
+        <p>CAMERA: {{ profile.camera }}</p>
+        <p>SERVICES: {{ profile.services }}</p>
+        <p>BIO: {{ profile.bio }}</p>
+        <p>PHONE: {{ profile.phone }}</p>
+        <p>PHOTO_STYLES: {{ profile.photo_styles }}</p>
+    </div>
+
+
+    {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+{% endblock %}
