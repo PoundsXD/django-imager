@@ -1,6 +1,7 @@
 from imager_images.models import Photo, Album
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -31,8 +32,10 @@ class AlbumForm(CreateView):
         return super(CreateView, self).form_valid(form)
 
 
-class PhotoListView(ListView):
-    model = Photo
-    queryset = Photo.objects.order_by(some_value)
-    context_object_name = 'objects'
-    template_name = 'app/template.html'
+class LibraryView(DetailView):
+    model = User
+    context_object_name = 'user'
+    template_name = 'imager_profile/library.html'
+
+    def get_object(self):
+        return User.objects.get(username=self.request.user.username)

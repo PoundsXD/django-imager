@@ -24,6 +24,7 @@
                     <li role="separator" class="divider"></li>
                     <li><a href="{% url 'add-album' %}">Albums {{ user.album_set.count }}</a></li>
                     <li><a href="{% url 'add-photo' %}">Photos {{ user.photo_set.count }}</a></li>
+                    <li><a href="{% url 'library' %}">Library</a></li>
                 </ul>
               </div>
             {% endif %}
