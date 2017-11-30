@@ -97,6 +97,5 @@ def activation_sent_view(request):
 
 def profile_view(request):
     """View for user profile."""
-    import pdb; pdb.set_trace()
     if request.user.is_authenticated():
         return render(request, 'imager_profile/profile.html')
