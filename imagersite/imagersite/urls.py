@@ -1,4 +1,4 @@
-"""imagersite URL Configuration
+"""imagersite URL Configuration.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/1.11/topics/http/urls/
@@ -18,7 +18,7 @@ from django.contrib import admin
 from imager_profile import views
 from django.conf import settings
 from django.conf.urls.static import static
-from imager_images.views import PhotoForm, AlbumForm, OneProfile
+from imager_images.views import PhotoForm, AlbumForm, LibraryView
 
 
 urlpatterns = [
@@ -29,10 +29,10 @@ urlpatterns = [
     url(r'^login/$', views.login_view, name='login'),
     url(r'^register/$', views.register_view, name='register'),
     url(r'^profile/$', views.profile_view, name='profile'),
-    url(r'^profile/(?P<username>\w)/$',  OneProfile.as_view(), name='one-profile'),
+    # url(r'^profile/(?P<username>\w)/$',  OneProfile.as_view(), name='one-profile'),
     url(r'^images/photos/add/', PhotoForm.as_view(), name='add-photo'),
     url(r'^images/albums/add/', AlbumForm.as_view(), name='add-album'),
-    url(r'^images/library$', name='')
+    url(r'^images/library$', LibraryView.as_view(), name='library')
 ]
 
 if settings.DEBUG:

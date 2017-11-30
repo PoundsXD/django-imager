@@ -7,38 +7,13 @@
 
 {% block content %}
 
-{% for album in user.album_set.count %}
-    <img src="{{ user.album_set.first().photos.first().image.file.file.read() }}" alt="">
+{% csrf_token %}
+{% for album in user.album_set.all %}
+    <img src="{{ album.cover.image.url }}" alt="">
 {% endfor %}
-
-    <div class="profile-view">
-        <h1>Welcome, {{ user.username }}</h1>
-
-        <p>WEBSITE: {{ user.imagerprofile.website }}</p>
-        <p>LOCATION: {{ user.imagerprofile.location }}</p>
-        <p>COMMISSION: {{ user.imagerprofile.commission }}</p>
-        <p>CAMERA: {{ user.imagerprofile.camera }}</p>
-        <p>SERVICES: {{ user.imagerprofile.services }}</p>
-        <p>BIO: {{ user.imagerprofile.bio }}</p>
-        <p>PHONE: {{ user.imagerprofile.phone }}</p>
-        <p>PHOTO_STYLES: {{ user.imagerprofile.photo_styles }}</p>
-
-        <p>To edit your information, use the form below.</p>
-
-        <form method="POST">
-            <label>Website<input type="text" placeholder="Enter your website (optional)"></input></label>
-            <label>Camera</label>
-            <label>Commission<input type="number" placeholder="00.00"></input></label>
-            <label>Bio<textarea placeholder="Tell us about yourself..."></textarea></label>
-            <label>Services</label>
-            <label>Phone<input type="text" placeholder="123-456-7890"></input></label>
-            <label>Photo Styles</label>
-            <label>Location<input type="text" placeholder="Seattle, WA"></input></label>
-        </form>
-
-
-    </div>
-
+{% for photo in user.photo_set.all %}
+    <img src="{{ photo.image.url }}" alt="">
+{% endfor %}
 
     {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
 
