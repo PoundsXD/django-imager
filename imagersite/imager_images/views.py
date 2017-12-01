@@ -30,9 +30,10 @@ class AlbumForm(CreateView):
         form.instance.user = self.request.user
         return super(CreateView, self).form_valid(form)
 
-
+'''
 class PhotoListView(ListView):
     model = Photo
     queryset = Photo.objects.order_by(some_value)
     context_object_name = 'objects'
     template_name = 'app/template.html'
+    '''

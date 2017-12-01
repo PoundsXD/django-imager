@@ -1,7 +1,10 @@
 """Views."""
 
+from django.contrib.auth import views as auth_views
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.contrib.auth import logout
+from django.views import View
 
 
 def home_view(request, page='Home'):
@@ -10,10 +13,17 @@ def home_view(request, page='Home'):
     context = {'page': page}
     return render(request, 'imager_profile/home.html', context=context)
 
+#class login_view(View):
+ #   def get()
 
+class logout_view(View):
+    def get(self, request):
+        return auth_views.logout(request)
+
+'''
 def login_view(request, page='Login'):
     """View that returns login view."""
-
+   # import pdb; pdb.set_trace()
     if request.method == 'GET':
         context = {'page': page}
         return render(request, 'imager_profile/login.html', context=context)
@@ -26,12 +36,15 @@ def login_view(request, page='Login'):
 
         user = authenticate(username=username, password=password)
 
+        import pdb; pdb.set_trace()
+
         if user is not None:
             from django.shortcuts import redirect
             import imagersite.settings
-            return redirect(imagersite.settings.LOGIN_REDIRECT_URL)
+            return redirect(imagersite.settings.LOGIN_REDIRECT_URL, user)
         else:
             pass
+            '''
 
 
 def register_view(request, page='Register'):
@@ -98,5 +111,7 @@ def activation_sent_view(request):
 def profile_view(request):
     """View for user profile."""
     import pdb; pdb.set_trace()
-    if request.user.is_authenticated():
-        return render(request, 'imager_profile/profile.html')
+    #if request.user.is_authenticated():
+    return render(request, 'imager_profile/profile.html')
+    #return render(request, 'imager_profile/home.html')
+
