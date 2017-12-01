@@ -20,33 +20,6 @@ class logout_view(View):
     def get(self, request):
         return auth_views.logout(request)
 
-'''
-def login_view(request, page='Login'):
-    """View that returns login view."""
-   # import pdb; pdb.set_trace()
-    if request.method == 'GET':
-        context = {'page': page}
-        return render(request, 'imager_profile/login.html', context=context)
-    elif request.method == 'POST':
-        from django.contrib.auth import authenticate
-
-        unicode_request = request.body.decode('utf8')
-        username = unicode_request.split('&')[1].split('=')[1]
-        password = unicode_request.split('&')[2].split('=')[1]
-
-        user = authenticate(username=username, password=password)
-
-        import pdb; pdb.set_trace()
-
-        if user is not None:
-            from django.shortcuts import redirect
-            import imagersite.settings
-            return redirect(imagersite.settings.LOGIN_REDIRECT_URL, user)
-        else:
-            pass
-            '''
-
-
 def register_view(request, page='Register'):
     """View that returns login view."""
     from imager_profile.forms import EmailRegistrationForm
@@ -110,8 +83,4 @@ def activation_sent_view(request):
 
 def profile_view(request):
     """View for user profile."""
-    import pdb; pdb.set_trace()
-    #if request.user.is_authenticated():
     return render(request, 'imager_profile/profile.html')
-    #return render(request, 'imager_profile/home.html')
-
