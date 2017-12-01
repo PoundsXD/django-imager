@@ -31,6 +31,7 @@ class AlbumForm(CreateView):
         form.instance.user = self.request.user
         return super(CreateView, self).form_valid(form)
 
+<<<<<<< HEAD
 
 class LibraryView(DetailView):
     model = User
@@ -45,3 +46,12 @@ class SinglePhotoView(DetailView):
     model = Photo
     context_object_name = 'photo'
     template_name = 'imager_profile/single_photo.html'
+=======
+'''
+class PhotoListView(ListView):
+    model = Photo
+    queryset = Photo.objects.order_by(some_value)
+    context_object_name = 'objects'
+    template_name = 'app/template.html'
+    '''
+>>>>>>> a564e29c03a26a2c70fe4345cbe1ef164d4699ad
