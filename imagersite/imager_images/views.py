@@ -45,3 +45,9 @@ class SinglePhotoView(DetailView):
     model = Photo
     context_object_name = 'photo'
     template_name = 'imager_profile/single_photo.html'
+
+
+class SingleAlbumView(DetailView):
+    model = Album
+    context_object_name = 'album'
+    template_name = 'imager_profile/single_album.html'
