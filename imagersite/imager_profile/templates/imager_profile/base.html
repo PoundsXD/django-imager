@@ -16,19 +16,17 @@
             {% if request.user.is_active %}
               <div id="nav-username" class="dropdown">
                 <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    {{ user.username}}
+                    {{ user.username }}
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                     <li><a href="{% url 'profile' %}">Profile</a></li>
                     <li role="separator" class="divider"></li>
-                    <li><a href="{% url 'add-album' %}">Albums {{ user.album_set.count }}</a></li>
-                    <li><a href="{% url 'add-photo' %}">Photos {{ user.photo_set.count }}</a></li>
-<<<<<<< HEAD
+                    <li><a href="{% url 'add-album' %}">Albums: {{ user.album_set.count }}</a></li>
+                    <li><a href="{% url 'add-photo' %}">Photos: {{ user.photo_set.count }}</a></li>
                     <li><a href="{% url 'library' %}">Library</a></li>
-=======
-                    <li><a href="/logout"> Logout</a></li>
->>>>>>> a564e29c03a26a2c70fe4345cbe1ef164d4699ad
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{% url 'logout' %}"> Logout</a></li>
                 </ul>
               </div>
             {% endif %}

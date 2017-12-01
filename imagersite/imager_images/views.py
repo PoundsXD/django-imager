@@ -1,7 +1,9 @@
 from imager_images.models import Photo, Album
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView
 from django.contrib.auth.models import User
+from django.views import View
+from django.contrib.auth import views as auth_views
 
 # Create your views here.
 
@@ -31,7 +33,6 @@ class AlbumForm(CreateView):
         form.instance.user = self.request.user
         return super(CreateView, self).form_valid(form)
 
-<<<<<<< HEAD
 
 class LibraryView(DetailView):
     model = User
@@ -46,12 +47,14 @@ class SinglePhotoView(DetailView):
     model = Photo
     context_object_name = 'photo'
     template_name = 'imager_profile/single_photo.html'
-=======
-'''
-class PhotoListView(ListView):
-    model = Photo
-    queryset = Photo.objects.order_by(some_value)
-    context_object_name = 'objects'
-    template_name = 'app/template.html'
-    '''
->>>>>>> a564e29c03a26a2c70fe4345cbe1ef164d4699ad
+
+
+class SingleAlbumView(DetailView):
+    model = Album
+    context_object_name = 'album'
+    template_name = 'imager_profile/single_album.html'
+
+
+class LogoutView(View):
+    def get(self, request):
+        return auth_views.logout(request)

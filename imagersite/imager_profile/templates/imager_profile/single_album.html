@@ -1,0 +1,16 @@
+{% extends 'imager_profile/base.html' %}
+
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+{% for photo in album.photos.all %}
+    <img src="{{ photo.image.url }}" alt="">
+{% endfor %}
+
+{% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+{% endblock %}

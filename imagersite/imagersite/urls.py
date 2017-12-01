@@ -18,13 +18,8 @@ from django.contrib import admin
 from imager_profile import views
 from django.conf import settings
 from django.conf.urls.static import static
-<<<<<<< HEAD
-from imager_images.views import PhotoForm, AlbumForm, LibraryView, SinglePhotoView
-=======
-from imager_images.views import PhotoForm, AlbumForm #OneProfile
-from imager_profile.views import logout_view
+from imager_images.views import PhotoForm, AlbumForm, LibraryView, SinglePhotoView, LogoutView
 from django.contrib.auth import views as auth_views
->>>>>>> a564e29c03a26a2c70fe4345cbe1ef164d4699ad
 
 
 urlpatterns = [
@@ -34,21 +29,14 @@ urlpatterns = [
     url(r'^$', views.home_view, name='homepage'),
     url(r'^register/$', views.register_view, name='register'),
     url(r'^profile/$', views.profile_view, name='profile'),
-<<<<<<< HEAD
     # url(r'^profile/(?P<username>\w)/$',  OneProfile.as_view(), name='one-profile'),
     url(r'^images/photos/add/', PhotoForm.as_view(), name='add-photo'),
     url(r'^images/albums/add/', AlbumForm.as_view(), name='add-album'),
     url(r'^images/library/$', LibraryView.as_view(), name='library'),
-    url(r'^images/photos/(?P<pk>\d+)/$', SinglePhotoView.as_view(), name='single-photo')
-=======
-    #url(r'^profile/(?P<username>\w)/$',  OneProfile.as_view(), name='one-profile'),
-    url(r'^images/photos/add/', PhotoForm.as_view(), name='add-photo'),
-    url(r'^images/albums/add/', AlbumForm.as_view(), name='add-album'),
-    #url(r'^images/library$', name='')
-    url(r'^login/$', auth_views.login, {'template_name': 'registration/login.html'}, name='login'),
-    url(r'^logout/', logout_view.as_view(), name='logout'),
+    url(r'^images/photos/(?P<pk>\d+)/$', SinglePhotoView.as_view(), name='single-photo'),
+    url(r'^login/$', auth_views.login, {'template_name': 'imager_profile/login.html'}, name='login'),
+    url(r'^logout/', LogoutView.as_view(), name='logout'),
     url(r'^accounts/', include('registration.backends.hmac.urls'))
->>>>>>> a564e29c03a26a2c70fe4345cbe1ef164d4699ad
 ]
 
 if settings.DEBUG:
