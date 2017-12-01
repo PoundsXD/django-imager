@@ -12,7 +12,7 @@
     <img src="{{ album.cover.image.url }}" alt="">
 {% endfor %}
 {% for photo in user.photo_set.all %}
-    <img src="{{ photo.image.url }}" alt="">
+    <a href="{% url 'single-photo' photo.id %}"><img src="{{ photo.image.url }}" alt=""></a>
 {% endfor %}
 
     {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}

@@ -18,7 +18,7 @@ from django.contrib import admin
 from imager_profile import views
 from django.conf import settings
 from django.conf.urls.static import static
-from imager_images.views import PhotoForm, AlbumForm, LibraryView
+from imager_images.views import PhotoForm, AlbumForm, LibraryView, SinglePhotoView
 
 
 urlpatterns = [
@@ -32,7 +32,8 @@ urlpatterns = [
     # url(r'^profile/(?P<username>\w)/$',  OneProfile.as_view(), name='one-profile'),
     url(r'^images/photos/add/', PhotoForm.as_view(), name='add-photo'),
     url(r'^images/albums/add/', AlbumForm.as_view(), name='add-album'),
-    url(r'^images/library$', LibraryView.as_view(), name='library')
+    url(r'^images/library/$', LibraryView.as_view(), name='library'),
+    url(r'^images/photos/(?P<pk>\d+)/$', SinglePhotoView.as_view(), name='single-photo')
 ]
 
 if settings.DEBUG:

@@ -39,3 +39,9 @@ class LibraryView(DetailView):
 
     def get_object(self):
         return User.objects.get(username=self.request.user.username)
+
+
+class SinglePhotoView(DetailView):
+    model = Photo
+    context_object_name = 'photo'
+    template_name = 'imager_profile/single_photo.html'
