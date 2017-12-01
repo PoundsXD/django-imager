@@ -28,7 +28,6 @@ urlpatterns = [
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home_view, name='homepage'),
-   
     url(r'^register/$', views.register_view, name='register'),
     url(r'^profile/$', views.profile_view, name='profile'),
     #url(r'^profile/(?P<username>\w)/$',  OneProfile.as_view(), name='one-profile'),
