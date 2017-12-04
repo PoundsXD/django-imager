@@ -13,12 +13,13 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.contrib import admin
 from imager_profile import views
 from django.conf import settings
 from django.conf.urls.static import static
-from imager_images.views import PhotoForm, AlbumForm, LibraryView, SinglePhotoView, SingleAlbumView
+from imager_images.views import PhotoForm, AlbumForm, LibraryView, SinglePhotoView, LogoutView
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -26,7 +27,6 @@ urlpatterns = [
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
     url(r'^admin/', admin.site.urls),
     url(r'^$', views.home_view, name='homepage'),
-    url(r'^login/$', views.login_view, name='login'),
     url(r'^register/$', views.register_view, name='register'),
     url(r'^profile/$', views.profile_view, name='profile'),
     # url(r'^profile/(?P<username>\w)/$',  OneProfile.as_view(), name='one-profile'),
@@ -34,7 +34,10 @@ urlpatterns = [
     url(r'^images/albums/add/', AlbumForm.as_view(), name='add-album'),
     url(r'^images/library/$', LibraryView.as_view(), name='library'),
     url(r'^images/photos/(?P<pk>\d+)/$', SinglePhotoView.as_view(), name='single-photo'),
-    url(r'^images/albums/(?P<pk>\d+)/$', SingleAlbumView.as_view(), name='single-album')
+    url(r'^images/albums/(?P<pk>\d+)/$', SingleAlbumView.as_view(), name='single-album'),
+    url(r'^login/$', auth_views.login, {'template_name': 'imager_profile/login.html'}, name='login'),
+    url(r'^logout/', LogoutView.as_view(), name='logout'),
+    url(r'^accounts/', include('registration.backends.hmac.urls'))
 ]
 
 if settings.DEBUG:

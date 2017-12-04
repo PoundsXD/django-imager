@@ -1,7 +1,5 @@
 """Views."""
-
 from django.shortcuts import render
-from django.contrib.auth.models import User
 
 
 def home_view(request, page='Home'):
@@ -11,33 +9,10 @@ def home_view(request, page='Home'):
     return render(request, 'imager_profile/home.html', context=context)
 
 
-def login_view(request, page='Login'):
-    """View that returns login view."""
-
-    if request.method == 'GET':
-        context = {'page': page}
-        return render(request, 'imager_profile/login.html', context=context)
-    elif request.method == 'POST':
-        from django.contrib.auth import authenticate
-
-        unicode_request = request.body.decode('utf8')
-        username = unicode_request.split('&')[1].split('=')[1]
-        password = unicode_request.split('&')[2].split('=')[1]
-
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            from django.shortcuts import redirect
-            import imagersite.settings
-            return redirect(imagersite.settings.LOGIN_REDIRECT_URL)
-        else:
-            pass
-
-
 def register_view(request, page='Register'):
     """View that returns login view."""
     from imager_profile.forms import EmailRegistrationForm
-    from django.shortcuts import render, redirect
+    from django.shortcuts import render
     from django.contrib.sites.shortcuts import get_current_site
     from django.utils.encoding import force_bytes
     from django.utils.http import urlsafe_base64_encode
@@ -97,5 +72,6 @@ def activation_sent_view(request):
 
 def profile_view(request):
     """View for user profile."""
+
     if request.user.is_authenticated():
         return render(request, 'imager_profile/profile.html')

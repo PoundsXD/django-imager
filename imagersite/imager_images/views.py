@@ -1,7 +1,9 @@
 from imager_images.models import Photo, Album
 from django.views.generic.edit import CreateView
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView
 from django.contrib.auth.models import User
+from django.views import View
+from django.contrib.auth import views as auth_views
 
 # Create your views here.
 
@@ -51,3 +53,8 @@ class SingleAlbumView(DetailView):
     model = Album
     context_object_name = 'album'
     template_name = 'imager_profile/single_album.html'
+
+
+class LogoutView(View):
+    def get(self, request):
+        return auth_views.logout(request)
