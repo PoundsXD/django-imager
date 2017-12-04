@@ -8,6 +8,18 @@ from django.contrib.auth import views as auth_views
 # Create your views here.
 
 
+class UpdateAlbum(UpdateView):
+    """Update an existing Album."""
+    model = Album
+    template_name = 'imager_images/edit_album.html'
+    exclude = ['date_published', 'date_created', 'date_modified', 'user']
+    fields = ('published','photos','cover', 'title', 'description')
+    success_url = '/profile/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(UpdateView, self).form_valid(form)
+
 class PhotoForm(CreateView):
     """Create instance of PhotoForm object."""
     model = Photo

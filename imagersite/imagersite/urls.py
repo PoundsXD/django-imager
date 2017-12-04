@@ -18,7 +18,7 @@ from django.contrib import admin
 from imager_profile import views
 from django.conf import settings
 from django.conf.urls.static import static
-from imager_images.views import PhotoForm, AlbumForm, LibraryView, SinglePhotoView, SingleAlbumView, LogoutView, OneProfileView, PublicPhotosView, PublicAlbumsView, UpdatePhoto
+from imager_images.views import PhotoForm, AlbumForm, LibraryView, SinglePhotoView, SingleAlbumView, LogoutView, OneProfileView, PublicPhotosView, PublicAlbumsView, UpdatePhoto, UpdateAlbum
 from django.contrib.auth import views as auth_views
 
 
@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^register/$', views.register_view, name='register'),
     url(r'^profile/$', views.profile_view, name='profile'),
     url(r'^profile/(?P<slug>\w)',  OneProfileView.as_view(), name='profile'),
+    url(r'^images/album/(?P<pk>\w)/edit', UpdateAlbum.as_view(), name='edit-album'),
     url(r'^images/photos/(?P<pk>\w)/edit', UpdatePhoto.as_view(), name='edit-photo'),
     url(r'^images/photos/add/', PhotoForm.as_view(), name='add-photo'),
     url(r'^images/albums/add/', AlbumForm.as_view(), name='add-album'),
