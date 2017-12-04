@@ -14,10 +14,11 @@
         <p><a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Login</a></p>
         <p><a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register</a></p>
     </div>
+    {% load static %}
+    <img src="{% static "imager_profile/pretty.jpg" %}" alt="Found on Google" height="500px"/>
 {% endif %}
 
-{% load static %}
-<img src="{% static "imager_profile/pretty.jpg" %}" alt="Found on Google" height="500px"/>
+<img src="{{ photo.image.url }}" alt="{{ photo.title }}" height="500px"/>
 
 {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
 

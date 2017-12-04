@@ -2,11 +2,14 @@
 from django.shortcuts import render
 
 
-def home_view(request, page='Home'):
+def home_view(request):
     """View that returns homepage view."""
-
-    context = {'page': page}
-    return render(request, 'imager_profile/home.html', context=context)
+    if request.user.is_authenticated is False:
+        photo = request.user.photo_set.order_by('?').first()
+        context = {'photo': photo}
+        return render(request, 'imager_profile/home.html', context=context)
+    else:
+        return render(request, 'imager_profile/home.html')
 
 
 def register_view(request, page='Register'):
@@ -74,4 +77,8 @@ def profile_view(request):
     """View for user profile."""
 
     if request.user.is_authenticated():
-        return render(request, 'imager_profile/profile.html')
+        private_album_count = request.user.album_set.filter(published='PRIVATE')
+        private_photo_count = request.user.photo_set.filter(published='PRIVATE')
+        context = {'private_photos': private_photo_count,
+                   'private_albums': private_album_count}
+        return render(request, 'imager_profile/profile.html', context=context)

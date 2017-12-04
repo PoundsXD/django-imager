@@ -8,7 +8,16 @@
 {% block content %}
 
     <div class="profile-view">
-        <h1>Welcome, {{ user.username }}</h1>
+        <h1>Welcome, {{ user.username }}!</h1>
+
+{% if user.is_authenticated %}
+
+        <h3>PRIVATE ALBUM COUNT: {{ private_albums.count }}</h3>
+        <h3>PRIVATE PHOTO COUNT: {{ private_photos.count }}</h3>
+        <h3>PUBLIC ALBUM COUNT: {{ user.photo_set.count }}</h3>
+        <h3>PUBLIC PHOTO COUNT: {{ user.album_set.count }}</h3>
+
+{% endif %}
 
         <p>WEBSITE: {{ user.imagerprofile.website }}</p>
         <p>LOCATION: {{ user.imagerprofile.location }}</p>
@@ -21,7 +30,7 @@
 
         <p>To edit your information, use the form below.</p>
 
-{% if user.is_active %}
+{% if user.is_authenticated %}
         <form method="POST">
             <label>Website<input type="text" placeholder="Enter your website (optional)"></input></label>
             <label>Camera</label>

@@ -3,38 +3,22 @@
 from django.test import TestCase
 from imager_profile.models import ImagerProfile
 from django.contrib.auth.models import User
-import factory
 
 
-class UserFactory(factory.django.DjangoModelFactory):
-    """Create classes for testing User."""
+def new_profile(username, password):
+    """Custom function to create ImagerProfile with given user."""
 
-    class Meta:
-        """Create instance of User object."""
+    user = User(username=username, password=password)
+    user.save()
 
-        model = User
-
-    username = 'BobbyG'
-    password = 'Bobbybethebest'
-
-
-class ProfileFactory(factory.django.DjangoModelFactory):
-    """Create classes for testing ImagerProfile."""
-
-    class Meta:
-        """Create instance of ImagerProfile."""
-
-        model = ImagerProfile
-
-    user = factory.SubFactory(UserFactory)
-    website = 'google.com'
-    location = 'seattle'
-    commission = 50.00
-    camera = 'Nikon'
-    services = 'I do stuff'
-    bio = 'I am a person'
-    phone = '2062427983'
-    photo_styles = 'all the styles'
+    return ImagerProfile(user=user,
+                         website='google.com',
+                         location='seattle',
+                         commission=50.00, camera='Nikon',
+                         services='I do stuff',
+                         bio='I am a person',
+                         phone='2062427983',
+                         photo_styles='all the styles')
 
 
 class ImagersiteTests(TestCase):
@@ -44,7 +28,7 @@ class ImagersiteTests(TestCase):
         """Test creation of ImagerProfile creates a profile with correct
         given values, including access to User username and password."""
 
-        profile = ProfileFactory()
+        profile = new_profile('Bman', 'bbybethebest')
         self.assertEquals(profile.location, 'seattle')
         self.assertEquals(profile.commission, 50.00)
         self.assertEquals(profile.camera, 'Nikon')
@@ -52,13 +36,13 @@ class ImagersiteTests(TestCase):
         self.assertEquals(profile.bio, 'I am a person')
         self.assertEquals(profile.phone, '2062427983')
         self.assertEquals(profile.photo_styles, 'all the styles')
-        self.assertEquals(profile.user.username, 'BobbyG')
-        self.assertEquals(profile.user.password, 'Bobbybethebest')
+        self.assertEquals(profile.user.username, 'Bman')
+        self.assertEquals(profile.user.password, 'bbybethebest')
 
     def test_that_imager_profile_methods_return_correct_values(self):
         """Test ImagerProfile methods return correct values."""
 
-        profile = ProfileFactory()
+        profile = new_profile('BobbyG', 'Bobbybethebest')
         self.assertEquals(profile.is_active, True)
         self.assertEqual(profile.active.values()[0]['username'], 'BobbyG')
         self.assertEqual(profile.active.values()[0]['password'], 'Bobbybethebest')
@@ -67,8 +51,8 @@ class ImagersiteTests(TestCase):
         """Test default values for camera, photo_styles, and services are
         given to new ImagerProfile if no values entered."""
 
-        bob = UserFactory()
+        bob = User('bobdude', password='bobduderules')
         profile = ImagerProfile(user=bob, website='google.com', location='seattle', commission=100.00, bio='I am a person', phone='2062427983')
-        self.assertEquals(profile.camera, 'CNT6I')
-        self.assertEquals(profile.services, 'MEGA')
-        self.assertEquals(profile.photo_styles, 'STD')
+        self.assertEquals(profile.camera, 'CanonT6i')
+        self.assertEquals(profile.services, 'Mega-Service Pack')
+        self.assertEquals(profile.photo_styles, 'Standard')
