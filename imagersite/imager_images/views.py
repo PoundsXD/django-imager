@@ -1,5 +1,5 @@
 from imager_images.models import Photo, Album
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic import DetailView
 from django.contrib.auth.models import User
 from django.views import View
@@ -77,6 +77,7 @@ class PublicPhotosView(DetailView):
 
 class PublicAlbumsView(DetailView):
     """Create instance of PublicAlbumsView object."""
+
     model = User
     context_object_name = 'public_albums'
     template_name = 'imager_images/public_albums.html'
@@ -87,5 +88,22 @@ class PublicAlbumsView(DetailView):
 
 class LogoutView(View):
     """Create instance of LogoutView object."""
+
     def get(self, request):
         return auth_views.logout(request)
+
+
+class UpdatePhoto(UpdateView):
+    """Update an instance of the photo model."""
+
+    model = Photo
+    exclude = ['image']
+    slug_field = 'user__username'
+    slug_url_kwarg = 'username'
+    template_name = 'imager_images/edit_photo.html'
+    fields = ('title', 'description', 'published')
+    success_url = '/profile/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(UpdateView, self).form_valid(form)
