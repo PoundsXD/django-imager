@@ -121,6 +121,9 @@ class UpdatePhoto(UpdateView):
         form.instance.user = self.request.user
         return super(UpdateView, self).form_valid(form)
 
+    def change_date_e(self):
+        self.date_modified = models.DateTimeField(auto_now_add=True)
+
 
 class UpdateProfile(UpdateView):
     """Update a user profile object."""
