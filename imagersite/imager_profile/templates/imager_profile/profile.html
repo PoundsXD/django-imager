@@ -16,6 +16,8 @@
         <h3>PRIVATE PHOTO COUNT: {{ private_photos.count }}</h3>
         <h3>PUBLIC ALBUM COUNT: {{ user.photo_set.count }}</h3>
         <h3>PUBLIC PHOTO COUNT: {{ user.album_set.count }}</h3>
+        <a href="{% url 'edit-profile' %}">Edit Profile</a>
+
 
 {% endif %}
 
@@ -29,21 +31,6 @@
         <p>PHOTO_STYLES: {{ user.imagerprofile.photo_styles }}</p>
 
         <p>To edit your information, use the form below.</p>
-
-{% if user.is_authenticated %}
-        <form method="POST">
-            <label>Website<input type="text" placeholder="Enter your website (optional)"></input></label>
-            <label>Camera</label>
-            <label>Commission<input type="number" placeholder="00.00"></input></label>
-            <label>Bio<textarea placeholder="Tell us about yourself..."></textarea></label>
-            <label>Services</label>
-            <label>Phone<input type="text" placeholder="123-456-7890"></input></label>
-            <label>Photo Styles</label>
-            <label>Location<input type="text" placeholder="Seattle, WA"></input></label>
-        </form>
-{% endif %}
-
-
     </div>
 
 

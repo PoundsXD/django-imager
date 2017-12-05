@@ -1,6 +1,7 @@
 from imager_images.models import Photo, Album
+from imager_profile.models import ImagerProfile
 from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic import DetailView
+from django.views.generic import DetailView, TemplateView
 from django.contrib.auth.models import User
 from django.views import View
 from django.contrib.auth import views as auth_views
@@ -115,6 +116,24 @@ class UpdatePhoto(UpdateView):
     template_name = 'imager_images/edit_photo.html'
     fields = ('title', 'description', 'published')
     success_url = '/profile/'
+
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(UpdateView, self).form_valid(form)
+
+
+class UpdateProfile(UpdateView):
+    """Update a user profile object."""
+
+    model = ImagerProfile
+    exclude = ['user']
+    slug_field = 'profile_id'
+    template_name = 'imager_images/edit_profile.html'
+    fields = ('website', 'location', 'commission', 'camera', 'services', 'bio', 'phone', 'photo_styles')
+    success_url = '/profile/'
+
+    def get_object(self):
+        return self.request.user.imagerprofile
 
     def form_valid(self, form):
         form.instance.user = self.request.user
