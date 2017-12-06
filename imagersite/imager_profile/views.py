@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 def home_view(request):
     """View that returns homepage view."""
-    if request.user.is_authenticated is False:
+    if request.user.is_authenticated:
         photo = request.user.photo_set.order_by('?').first()
         context = {'photo': photo}
         return render(request, 'imager_profile/home.html', context=context)
@@ -62,7 +62,6 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.profile.email_confirmed = True
         user.save()
-        login(request, user)
         return redirect('login')
     else:
         return render(request, 'imager_profile/activation_invalid.html')
