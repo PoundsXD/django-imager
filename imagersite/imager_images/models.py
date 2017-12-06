@@ -19,7 +19,7 @@ class Photo(models.Model):
     image = models.ImageField(upload_to='media/%Y-%m-%d')
     description = models.CharField(max_length=180)
     date_uploaded = models.DateTimeField(auto_now_add=True)
-    date_modified = models.DateTimeField(auto_now=True)
+    date_modified = models.DateTimeField(auto_now_add=True)
     date_published = models.DateTimeField(auto_now=True)
     published = models.CharField(max_length=20, choices=PUBLISHED, default='PRIVATE')
 

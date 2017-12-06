@@ -5,6 +5,7 @@ from django.views.generic import DetailView, TemplateView
 from django.contrib.auth.models import User
 from django.views import View
 from django.contrib.auth import views as auth_views
+import datetime
 
 # Create your views here.
 
@@ -119,10 +120,15 @@ class UpdatePhoto(UpdateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
+        import pdb; pdb.set_trace()
+        if form.instance.published is 'PUBLIC' or form.instance.published is 'SHARED':
+            # self.object = form.save()
+            self.object.date_published = 'bob'
+            # self.object.published = form.instance.published
+            # self.object.save()
+            form.save()
         return super(UpdateView, self).form_valid(form)
-
-    def change_date_e(self):
-        self.date_modified = models.DateTimeField(auto_now_add=True)
+        
 
 
 class UpdateProfile(UpdateView):
