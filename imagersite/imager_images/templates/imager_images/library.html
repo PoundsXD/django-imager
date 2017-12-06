@@ -13,6 +13,7 @@
     {% for album in user.album_set.all %}
         <h2>{{ album.title }}</h2>
         <a href="{% url 'single-album' album.id %}"><img src="{{ album.cover.image.url }}" alt="" height="400px"></a>
+         <a href="{% url 'edit-album' album.id %}">Edit Album</a>
     {% endfor %}
 </div>
 <div>

@@ -1,0 +1,18 @@
+{% extends 'imager_profile/base.html' %}
+
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+    <h1>Use the fields below to edit your existing photo.</h1>
+
+    <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% buttons submit='Upload' reset="Reset" %}{% endbuttons %}
+    </form>
+
+{% endblock %}
