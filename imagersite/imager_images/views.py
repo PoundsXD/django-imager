@@ -1,4 +1,5 @@
 from imager_images.models import Photo, Album
+from imager_profile.models import ImagerProfile
 from django.views.generic.edit import CreateView
 from django.views.generic import DetailView
 from django.contrib.auth.models import User
@@ -60,9 +61,11 @@ class SingleAlbumView(DetailView):
 
 class OneProfileView(DetailView):
     """Create instance of OneProfileView object."""
-    model = User
-    context_object_name = 'user'
+    model = ImagerProfile
+    context_object_name = 'profile'
     template_name = 'imager_profile/profile.html'
+    slug_field = 'user__username'
+    slug_url_kwarg = 'username'
 
 
 class PublicPhotosView(DetailView):

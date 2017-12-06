@@ -18,6 +18,8 @@
     <img src="{% static "imager_profile/pretty.jpg" %}" alt="Found on Google" height="500px"/>
 {% endif %}
 
+<h2>Welcome back, {{ request.user.username }}.</h2>
+
 <img src="{{ photo.image.url }}" alt="{{ photo.title }}" height="500px"/>
 
 {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
