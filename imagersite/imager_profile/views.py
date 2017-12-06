@@ -80,7 +80,8 @@ def profile_view(request):
         private_album_count = request.user.album_set.filter(published='PRIVATE')
         private_photo_count = request.user.photo_set.filter(published='PRIVATE')
         context = {'private_photos': private_photo_count,
-                   'private_albums': private_album_count}
+                   'private_albums': private_album_count,
+                   'profile': request.user.profile}
         return render(request, 'imager_profile/profile.html', context=context)
     else:
         return redirect('login')
