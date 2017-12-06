@@ -38,6 +38,6 @@ class Album(models.Model):
     published = models.CharField(max_length=200, choices=PUBLISHED, default='PRIVATE')
     title = models.CharField(max_length=20)
     description = models.TextField(max_length=2000)
-    date_published = models.DateTimeField(blank=True, null=True)
+    date_published = models.DateTimeField(auto_now=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
