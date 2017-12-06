@@ -8,12 +8,14 @@
 {% block content %}
 
     <h1>Welcome back! Use the form below to sign in!</h1>
-
-    <form method="post">
+<form method="post">
         {% csrf_token %}
         <input type="text" name="username" value="" placeholder="Username">
         <input type="password" name="password" value="" placeholder="Password">
         {% buttons submit='Login' reset="Reset" %}{% endbuttons %}
     </form>
+{% if request.method == 'POST' %}
+{% bootstrap_alert "The username or password you've entered is invalid, please try again." alert_type='danger' %}
+{% endif %}
 
 {% endblock %}

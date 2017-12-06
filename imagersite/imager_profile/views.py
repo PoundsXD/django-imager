@@ -13,7 +13,7 @@ def home_view(request):
 
 
 def register_view(request, page='Register'):
-    """View that returns login view."""
+    """View that returns register view."""
     from imager_profile.forms import EmailRegistrationForm
     from django.shortcuts import render
     from django.contrib.sites.shortcuts import get_current_site
@@ -29,7 +29,7 @@ def register_view(request, page='Register'):
             user.is_active = False
             user.save()
             current_site = get_current_site(request)
-            subject = 'Activate Your MySite Account'
+            subject = 'Activate Your Imgine Account'
             message = render_to_string('imager_profile/user_activation.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -75,6 +75,7 @@ def activation_sent_view(request):
 
 def profile_view(request):
     """View for user profile."""
+    from django.shortcuts import redirect
 
     if request.user.is_authenticated():
         private_album_count = request.user.album_set.filter(published='PRIVATE')
@@ -82,3 +83,5 @@ def profile_view(request):
         context = {'private_photos': private_photo_count,
                    'private_albums': private_album_count}
         return render(request, 'imager_profile/profile.html', context=context)
+    else:
+        return redirect('login')

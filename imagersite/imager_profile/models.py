@@ -61,7 +61,6 @@ class ImagerProfile(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email_confirmed = models.BooleanField(default=False)
-    # other fields...
 
 
 @receiver(post_save, sender=User)
@@ -69,4 +68,4 @@ def update_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
         ImagerProfile.objects.create(user=instance)
-    instance.profile.save()
+        instance.profile.save()

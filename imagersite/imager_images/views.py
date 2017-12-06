@@ -1,11 +1,10 @@
 from imager_images.models import Photo, Album
 from imager_profile.models import ImagerProfile
 from django.views.generic.edit import CreateView, UpdateView
-from django.views.generic import DetailView, TemplateView
+from django.views.generic import DetailView
 from django.contrib.auth.models import User
 from django.views import View
 from django.contrib.auth import views as auth_views
-import datetime
 
 # Create your views here.
 
@@ -15,12 +14,13 @@ class UpdateAlbum(UpdateView):
     model = Album
     template_name = 'imager_images/edit_album.html'
     exclude = ['date_published', 'date_created', 'date_modified', 'user']
-    fields = ('published','photos','cover', 'title', 'description')
+    fields = ('published', 'photos', 'cover', 'title', 'description')
     success_url = '/profile/'
 
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super(UpdateView, self).form_valid(form)
+
 
 class PhotoForm(CreateView):
     """Create instance of PhotoForm object."""
@@ -74,9 +74,11 @@ class SingleAlbumView(DetailView):
 
 class OneProfileView(DetailView):
     """Create instance of OneProfileView object."""
-    model = User
-    context_object_name = 'user'
+    model = ImagerProfile
+    context_object_name = 'profile'
     template_name = 'imager_profile/profile.html'
+    slug_field = 'user__username'
+    slug_url_kwarg = 'username'
 
 
 class PublicPhotosView(DetailView):
@@ -120,15 +122,7 @@ class UpdatePhoto(UpdateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        import pdb; pdb.set_trace()
-        if form.instance.published is 'PUBLIC' or form.instance.published is 'SHARED':
-            # self.object = form.save()
-            self.object.date_published = 'bob'
-            # self.object.published = form.instance.published
-            # self.object.save()
-            form.save()
         return super(UpdateView, self).form_valid(form)
-        
 
 
 class UpdateProfile(UpdateView):
