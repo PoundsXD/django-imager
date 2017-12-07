@@ -19,15 +19,13 @@ from imager_profile import views
 from django.conf import settings
 from django.conf.urls.static import static
 from imager_images.views import PhotoForm, AlbumForm, LibraryView, SinglePhotoView, SingleAlbumView, LogoutView, OneProfileView, PublicPhotosView, PublicAlbumsView, UpdatePhoto, UpdateAlbum, UpdateProfile
+from imager_profile.views import HomeView
 from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
-    url(r'^activation_sent/$', views.activation_sent_view, name='activationsent'),
-    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', views.activate, name='activate'),
     url(r'^admin/', admin.site.urls),
-    url(r'^$', views.home_view, name='homepage'),
-    url(r'^register/$', views.register_view, name='register'),
+    url(r'^$', HomeView.as_view(), name='homepage'),
     url(r'^profile/(?P<username>[\w\_\-]+)',  OneProfileView.as_view(), name='profile'),
     url(r'^profile/$', views.profile_view, name='profile'),
     url(r'^profile/edit$', UpdateProfile.as_view(), name='edit-profile'),
@@ -40,7 +38,7 @@ urlpatterns = [
     url(r'^images/albums/(?P<pk>\d+)/$', SingleAlbumView.as_view(), name='single-album'),
     url(r'^images/photos/', PublicPhotosView.as_view(), name='public-photos'),
     url(r'^images/albums/', PublicAlbumsView.as_view(), name='public-albums'),
-    url(r'^login/$', auth_views.login, {'template_name': 'imager_profile/login.html'}, name='login'),
+    url(r'^login/$', auth_views.login, {'template_name': 'registration/login.html'}, name='login'),
     url(r'^logout/', LogoutView.as_view(), name='logout'),
     url(r'^accounts/', include('registration.backends.hmac.urls'))
 ]

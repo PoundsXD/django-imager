@@ -12,12 +12,13 @@
         <h1>Are you a photographer?</h1>
         <p>Great news, you've come to the best website on the internet to host and share your work. Use the register to get signed up, or login now to access your content and share your work!</p>
         <p><a class="btn btn-primary btn-lg" href="{% url 'login' %}" role="button">Login</a></p>
-        <p><a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Register</a></p>
+        <p><a class="btn btn-primary btn-lg" href="accounts/register" role="button">Register</a></p>
     </div>
+{% else %}
+    <h2>Welcome back, {{ request.user.username }}.</h2>
 {% endif %}
-<h2>Welcome back, {{ request.user.username }}.</h2>
 
-{% if request.user.photo_set.count > 0 %}
+{% if user.photo_set.count > 0 %}
     <img src="{{ photo.image.url }}" alt="{{ photo.title }}" height="500px"/>
 {% else %}
     {% load static %}
