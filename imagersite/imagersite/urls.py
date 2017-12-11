@@ -26,9 +26,9 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', HomeView.as_view(), name='homepage'),
+    url(r'^profile/edit$', UpdateProfile.as_view(), name='edit-profile'),
     url(r'^profile/(?P<username>[\w\_\-]+)',  OneProfileView.as_view(), name='profile'),
     url(r'^profile/$', views.profile_view, name='profile'),
-    url(r'^profile/edit$', UpdateProfile.as_view(), name='edit-profile'),
     url(r'^images/album/(?P<pk>\w)/edit', UpdateAlbum.as_view(), name='edit-album'),
     url(r'^images/photo/(?P<pk>\w)/edit', UpdatePhoto.as_view(), name='edit-photo'),
     url(r'^images/photos/add/', PhotoForm.as_view(), name='add-photo'),

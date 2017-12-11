@@ -11,6 +11,7 @@ from django.contrib.auth import views as auth_views
 
 class UpdateAlbum(UpdateView):
     """Update an existing Album."""
+
     model = Album
     template_name = 'imager_images/edit_album.html'
     exclude = ['date_published', 'date_created', 'date_modified', 'user']
@@ -128,7 +129,6 @@ class UpdatePhoto(UpdateView):
 class UpdateProfile(UpdateView):
     """Update a user profile object."""
 
-    model = ImagerProfile
     exclude = ['user']
     slug_field = 'profile_id'
     template_name = 'imager_images/edit_profile.html'

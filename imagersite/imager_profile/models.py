@@ -65,7 +65,15 @@ class Profile(models.Model):
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
+    import pdb; pdb.set_trace()
     if created:
         Profile.objects.create(user=instance)
         ImagerProfile.objects.create(user=instance)
         instance.profile.save()
+
+
+@receiver(post_save, sender=ImagerProfile)
+def update_imager_profile(sender, instance, created, **kwargs):
+    Profile.objects.create(imagerprofile=instance)
+    ImagerProfile.objects.create(imagerprofile=instance)
+    instance.profile.save()
