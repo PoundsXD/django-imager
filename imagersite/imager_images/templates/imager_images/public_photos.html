@@ -1,0 +1,18 @@
+{% extends 'imager_profile/base.html' %}
+
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+<h1>Below are all public photos you've uploaded.</h1>
+
+{% for photo in public_photos %}
+    <img src="{{ photo.image.url }}" alt="{{ photo.title }}" height="400px">
+{% endfor %}
+
+{% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'imager_profile/base.html' %}
+
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+{% csrf_token %}
+<div>
+    <h1>Albums</h1>
+    {% for album in user.album_set.all %}
+        <h2>{{ album.title }}</h2>
+        <a href="{% url 'single-album' album.id %}"><img src="{{ album.cover.image.url }}" alt="" height="400px"></a>
+         <a href="{% url 'edit-album' album.id %}">Edit Album</a>
+    {% endfor %}
+</div>
+<div>
+    <h1>Photos</h1>
+    {% for photo in user.photo_set.all %}
+        <a href="{% url 'single-photo' photo.id %}"><img src="{{ photo.image.url }}" alt="" height="400px"></a>
+    {% endfor %}
+</div>
+
+    {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+{% endblock %}

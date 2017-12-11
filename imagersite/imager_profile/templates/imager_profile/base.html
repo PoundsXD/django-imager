@@ -1,0 +1,44 @@
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+
+{% load static %}
+<link rel="stylesheet" href="{% static "imager_profile/styles.css" %}">
+{% block bootstrap3_content %}
+    <div class="container">
+        <h1>Welcome to the imgine, the world's leading photographer site.</h1>
+        <ul class="nav nav-pills">
+            <li role="presentation"><a href="{% url 'homepage' %}">{% bootstrap_icon "home" %} Home</a></li>
+            {% if request.user.is_active == False %}
+            <li role="presentation"><a href="{% url 'login' %}">Login</a></li>
+            <li role="presentation"><a href="accounts/register">Register</a></li>
+            {% endif %}
+            {% if request.user.is_active %}
+              <div id="nav-username" class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    {{ request.user.username }}
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="{% url 'profile' %}">Profile</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{% url 'add-album' %}">Create Album</a></li>
+                    <li><a href="{% url 'add-photo' %}">Upload Photo</a></li>
+                    <li><a href="{% url 'public-albums' %}">Public Albums</a></li>
+                    <li><a href="{% url 'public-photos' %}">Public Photos</a></li>
+                    <li><a href="{% url 'library' %}">Library</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="{% url 'logout' %}"> Logout</a></li>
+                </ul>
+              </div>
+            {% endif %}
+        </ul>
+
+        {% block content %}{% endblock %}
+
+    </div>
+
+{% endblock %}
+
+<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+{% bootstrap_javascript %}

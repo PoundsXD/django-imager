@@ -1,0 +1,33 @@
+{% extends 'imager_profile/base.html' %}
+
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+<h1>Welcome, {{ user.username }}!</h1>
+    <div class="profile-view">
+        {% if user.is_authenticated %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            {% buttons submit='Upload' reset="Reset" %}{% endbuttons %}
+        </form>
+        <form method="post">
+            {% csrf_token %}
+            <label for="email">Type new email here:</label>
+            <input type="text" name="email" value="" placeholder="New Email">
+            <label for="first_name">Update your first name here:</label>
+            <input type="text" name="first_name" value="" placeholder="First Name">
+            <label for="last_name">Update your last name here:</label>
+            <input type="text" name="last_name" value="" placeholder="Last Name">
+            {% buttons submit='Upload' reset="Reset" %}{% endbuttons %}
+        </form>
+        {% endif %}
+    </div>
+
+
+    {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+{% endblock %}

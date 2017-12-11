@@ -1,0 +1,18 @@
+{% extends 'imager_profile/base.html' %}
+
+{% load bootstrap3 %}
+
+{% bootstrap_css %}
+{% bootstrap_javascript %}
+
+{% block content %}
+
+
+    <div class="jumbotron">
+        <h1>Registration Confirmed!</h1>
+        <p>Log in to start posting photos!</p>
+    </div>
+
+    {% autoescape off %}{% bootstrap_messages %}{% endautoescape %}
+
+{% endblock %}
