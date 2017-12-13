@@ -1,3 +1,1 @@
 Thank you for registering with imgine, the world's leading photographer website. Only one more step until you're posting your photographs for the world to see!
-
-http://{{ site }}{% url 'registration_activate' activation_key=activation_key %}

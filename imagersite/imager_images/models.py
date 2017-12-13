@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 
 class Photo(models.Model):
     """Photo template for a photo."""
-
     PUBLISHED = (
                 ('PRIVATE', 'This photo is private'),
                 ('SHARED', 'This photo is shared'),
