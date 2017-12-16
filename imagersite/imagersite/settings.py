@@ -137,7 +137,6 @@ MEDIAFILES_LOCATION = 'media'
 
 ACCOUNT_ACTIVATION_DAYS = 7  # One-week activation window; you may, of course, use a different value.
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_PORT = 587
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
@@ -159,8 +158,10 @@ if DEBUG:
 
     STATIC_URL = '/static/'
     MEDIA_URL = '/media/'
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 else:
 
     STATIC_URL = 'htts://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
     MEDIA_URL = 'htts://{}/{}/'.format(AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
