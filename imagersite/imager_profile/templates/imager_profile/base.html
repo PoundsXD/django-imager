@@ -11,7 +11,6 @@
             <li role="presentation"><a href="{% url 'homepage' %}">{% bootstrap_icon "home" %} Home</a></li>
             {% if request.user.is_active == False %}
             <li role="presentation"><a href="{% url 'login' %}">Login</a></li>
-            <li role="presentation"><a href="accounts/register">Register</a></li>
             {% endif %}
             {% if request.user.is_active %}
               <div id="nav-username" class="dropdown">
